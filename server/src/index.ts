@@ -1,8 +1,6 @@
 import dotenv from 'dotenv';
 dotenv.config();
 
-import serverless from 'serverless-http';
-
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
@@ -59,17 +57,10 @@ mongoose
   .connect(MONGODB_URI)
   .then(() => {
     console.log('connected to MongoDB');
-    // Only listen if not running in a lambda environment (proxied by the absence of aws-lambda related vars or explicit check)
-    // or if we strictly want to support "node src/index.ts" usage.
-    // serverless-offline also doesn't necessarily set AWS_LAMBDA_FUNCTION_NAME locally unless properly mocked.
-    if (!ENV.IS_LAMBDA) {
-      app.listen(PORT, () => {
-        console.log(`Server is running on port ${PORT}`);
-      });
-    }
+    app.listen(PORT, () => {
+      console.log(`Server is running on port ${PORT}`);
+    });
   })
   .catch((err) => {
     console.error('MongoDB connection error:', err);
   });
-
-export const handler = serverless(app);

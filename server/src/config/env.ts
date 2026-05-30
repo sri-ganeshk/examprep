@@ -10,5 +10,4 @@ export const ENV = {
   CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:5173',
   ADMIN_EMAILS: (process.env.ADMIN_EMAIL || 'ganeshknsml@gmail.com').split(',').map(email => email.trim()),
   NODE_ENV: process.env.NODE_ENV || 'development',
-  IS_LAMBDA: !!process.env.AWS_LAMBDA_FUNCTION_NAME,
 };
