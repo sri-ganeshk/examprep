@@ -1,0 +1,75 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
+import serverless from 'serverless-http';
+
+import express from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
+import passport from 'passport';
+import helmet from 'helmet';
+import morgan from 'morgan';
+
+import '@/config/passport.ts';
+import authRoutes from '@/routes/auth.routes.ts';
+import contentRoutes from '@/routes/content.routes.ts';
+import aiRoutes from '@/routes/ai.routes.ts';
+import dashboardRoutes from '@/routes/dashboard.routes.ts';
+import ankiRoutes from '@/routes/anki.routes.ts';
+import adminRoutes from '@/routes/admin.routes.ts';
+import { ENV } from '@/config/env.ts';
+
+const app = express();
+const PORT = ENV.PORT;
+
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({ origin: ENV.CLIENT_URL?.split(',').map(url => url.trim()), credentials: true }));
+app.use(helmet());
+app.use(morgan('dev'));
+
+// Passport
+app.use(passport.initialize());
+
+// Routes
+import testRoutes from '@/routes/test.routes.js';
+
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api', contentRoutes);
+app.use('/api/ai', aiRoutes);
+app.use('/api/tests', testRoutes);
+app.use('/api/dashboard', dashboardRoutes);
+app.use('/api/anki', ankiRoutes);
+app.use('/api/admin', adminRoutes);
+
+// Error Handling
+import { errorHandler } from '@/middleware/error.middleware.ts';
+app.use(errorHandler);
+
+app.get('/', (req, res) => {
+  res.send('API is running...');
+});
+
+// Database connection
+const MONGODB_URI = ENV.MONGODB_URI;
+
+mongoose
+  .connect(MONGODB_URI)
+  .then(() => {
+    console.log('connected to MongoDB');
+    // Only listen if not running in a lambda environment (proxied by the absence of aws-lambda related vars or explicit check)
+    // or if we strictly want to support "node src/index.ts" usage.
+    // serverless-offline also doesn't necessarily set AWS_LAMBDA_FUNCTION_NAME locally unless properly mocked.
+    if (!ENV.IS_LAMBDA) {
+      app.listen(PORT, () => {
+        console.log(`Server is running on port ${PORT}`);
+      });
+    }
+  })
+  .catch((err) => {
+    console.error('MongoDB connection error:', err);
+  });
+
+export const handler = serverless(app);
