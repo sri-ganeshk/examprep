@@ -71,7 +71,7 @@ export function Navbar() {
             <GraduationCap className="h-6 w-6" />
           </div>
           <span className="text-xl font-bold tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-foreground to-foreground/70">
-            UPSC Prep
+            ExamPrep
           </span>
         </Link>
 

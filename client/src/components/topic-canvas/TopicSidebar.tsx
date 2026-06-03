@@ -6,6 +6,7 @@ import { Button } from '@/components/common/Button';
 import type { ContentBlock, ContentBlockType } from '@/types/domain';
 import { useNavigate } from 'react-router-dom';
 import { TruncatedText } from '@/components/common/TruncatedText';
+import { LatexText } from '@/components/common/LatexText';
 
 interface TopicSidebarProps {
   spaceName?: string;
@@ -88,7 +89,7 @@ export function TopicSidebar({
     if (block.kind === 'note') {
       const content = block.content || '';
       title = content.split('\n')[0].replace(/^#+\s*/, '') || 'Untitled Note';
-      preview = content.slice(0, 80).replace(/\n/g, ' ') + '...';
+      preview = content.replace(/\n/g, ' ');
     } else if (block.kind === 'single_select_mcq' || block.kind === 'multi_select_mcq') {
       title = block.question || 'Untitled Question';
       preview = 'Multiple Choice Question';
@@ -101,7 +102,6 @@ export function TopicSidebar({
         preview = 'Unknown content';
     }
 
-    if (title && title.length > 40) title = title.substring(0, 40) + '...';
     return { title, preview };
   };
 
@@ -248,13 +248,13 @@ export function TopicSidebar({
                     Q{index + 1}
                   </span>
                 </div>
-                <TruncatedText 
-                  as="h3" 
+                <TruncatedText
+                  as="h3"
                   lines={2}
                   className={cn("font-medium text-sm leading-tight mt-1", isActive ? "text-primary" : "text-foreground")}
                   title={title}
                 >
-                  {title}
+                  <LatexText text={title} />
                 </TruncatedText>
                 <TruncatedText 
                   as="p" 
@@ -262,7 +262,7 @@ export function TopicSidebar({
                   className="text-xs text-muted-foreground"
                   title={preview}
                 >
-                  {preview}
+                  <LatexText text={preview} />
                 </TruncatedText>
               </div>
             );

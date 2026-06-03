@@ -5,7 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 export const ENV = {
-  PORT: process.env.PORT || 5000,
+  PORT: process.env.PORT || 5001,
   MONGODB_URI: process.env.MONGODB_URI || 'mongodb://localhost:27017/examprep',
   CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:5173',
   ADMIN_EMAILS: (process.env.ADMIN_EMAIL || 'ganeshknsml@gmail.com').split(',').map(email => email.trim()),

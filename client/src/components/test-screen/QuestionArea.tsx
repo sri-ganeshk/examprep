@@ -1,6 +1,7 @@
 import { Button } from '@/components/common/Button';
 import { ContentBlockDisplay } from '@/components/content-blocks/ContentBlockDisplay';
 import { ArrowRight, Bookmark, Trash2, Save } from 'lucide-react';
+import { LatexText } from '@/components/common/LatexText';
 
 interface QuestionAreaProps {
     questionIndex: number;
@@ -94,14 +95,14 @@ export function QuestionArea({
                                                 <div className="mt-2 text-muted-foreground text-xs uppercase tracking-wide font-bold">Answers:</div>
                                                 <ol className="list-decimal pl-5 space-y-1 mt-1">
                                                     {questionBlock.blankAnswers?.map((ans: string, i: number) => (
-                                                        <li key={i}>{ans}</li>
+                                                        <li key={i}><LatexText text={ans} /></li>
                                                     ))}
                                                 </ol>
                                             </div>
                                         ) : (
                                             <ul className="list-disc pl-5 space-y-1">
                                                 {questionBlock.options?.filter((o: any) => o.isCorrect).map((o: any) => (
-                                                    <li key={o.id}>{o.text}</li>
+                                                    <li key={o.id}><LatexText text={o.text} /></li>
                                                 ))}
                                             </ul>
                                         )}
@@ -114,7 +115,7 @@ export function QuestionArea({
                                 <div className="p-4 bg-block-mcq-bg rounded-lg border border-block-mcq-border">
                                     <h4 className="text-xs font-bold text-block-mcq-text uppercase tracking-widest mb-2">Explanation</h4>
                                     <div className="text-sm leading-relaxed text-foreground/90">
-                                        {questionBlock.explanation}
+                                        <LatexText text={questionBlock.explanation} />
                                     </div>
                                 </div>
                             )}

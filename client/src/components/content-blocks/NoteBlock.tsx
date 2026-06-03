@@ -3,6 +3,7 @@ import { cn } from '@/lib/utils';
 import type { NoteBlock as NoteBlockType } from '@/types/domain';
 import { Card } from '@/components/common/Card';
 import { BlockFooter } from '@/components/content-blocks/BlockFooter';
+import { LatexText } from '@/components/common/LatexText';
 
 interface NoteBlockProps {
   block: NoteBlockType;
@@ -16,7 +17,7 @@ export function NoteBlock({ block, isTest = false }: NoteBlockProps) {
   return (
     <Card className={cn("transition-shadow", isTest ? "shadow-none border-0 p-0" : "hover:shadow-md")}>
       <div className="prose dark:prose-invert max-w-none text-foreground">
-        <div className="whitespace-pre-wrap">{block.content}</div>
+        <div className="whitespace-pre-wrap"><LatexText text={block.content || ''} /></div>
       </div>
       {!isTest && (
         <BlockFooter 

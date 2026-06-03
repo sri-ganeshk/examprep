@@ -353,6 +353,7 @@ export default function TestScreen() {
 
             <div className="flex-1 flex overflow-hidden">
                 <QuestionArea
+                    key={currentBlock._id}
                     questionIndex={currentQuestionIndex}
                     questionBlock={currentBlock}
                     userAnswer={answers[currentBlock._id]}

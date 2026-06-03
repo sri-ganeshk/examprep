@@ -5,6 +5,7 @@ import { Check, X, Send, RotateCcw, Eye } from 'lucide-react';
 import { Card } from '@/components/common/Card';
 import { Button } from '@/components/common/Button';
 import { BlockFooter } from '@/components/content-blocks/BlockFooter';
+import { LatexText } from '@/components/common/LatexText';
 
 interface FillInTheBlankBlockProps {
     block: FillInTheBlankBlock;
@@ -80,7 +81,7 @@ export function FillInTheBlankBlock({
     };
 
     const renderPart = (part: string, index: number) => (
-        <span key={`text-${index}`} className="whitespace-pre-wrap leading-loose">{part}</span>
+        <span key={`text-${index}`} className="whitespace-pre-wrap leading-loose"><LatexText text={part} /></span>
     );
 
     const renderBlank = (index: number) => {

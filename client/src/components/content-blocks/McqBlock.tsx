@@ -5,6 +5,7 @@ import { BlockFooter } from '@/components/content-blocks/BlockFooter';
 import { Button } from '@/components/common/Button';
 import { cn } from '@/lib/utils';
 import { CheckSquare, Square, CheckCircle2, XCircle, RotateCcw, Eye, Send } from 'lucide-react';
+import { LatexText } from '@/components/common/LatexText';
 
 interface McqBlockProps {
     block: SingleSelectMcqBlock | MultiSelectMcqBlock;
@@ -90,7 +91,7 @@ export function McqBlock({ block, isTest = false, value, onChange, onSubmit, com
                         Multi-Select
                     </span>
                 )}
-                <span className="flex-1">{block.question}</span>
+                <span className="flex-1"><LatexText text={block.question || ''} /></span>
             </h3>
 
             <div className="space-y-2">
@@ -160,7 +161,7 @@ export function McqBlock({ block, isTest = false, value, onChange, onSubmit, com
                                 {icon}
                             </div>
                             <span className={cn("flex-1 select-none", textClass)}>
-                                {option.text}
+                                <LatexText text={option.text} />
                             </span>
                         </div>
                     );

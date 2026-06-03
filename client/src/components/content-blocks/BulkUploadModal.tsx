@@ -6,6 +6,7 @@ import { Modal } from '@/components/common/Modal';
 import { type ContentBlock } from '@/types/domain';
 import { PromptService } from '@/services/PromptService';
 import { BulkUploadValidator, type ValidationError } from '@/services/BulkUploadValidator';
+import { LatexText } from '@/components/common/LatexText';
 
 interface BulkUploadModalProps {
   isOpen: boolean;
@@ -202,7 +203,7 @@ export function BulkUploadModal({ isOpen, onClose, onUpload, topicId }: BulkUplo
                          <tr key={idx} className="hover:bg-muted/10">
                            <td className="p-2 align-top font-mono text-muted-foreground uppercase text-[10px]">{block.kind === 'single_select_mcq' ? 'MCQ' : block.kind}</td>
                            <td className="p-2 align-top">
-                              <p className="font-medium line-clamp-1">{block.question || block.content?.substring(0, 50)}</p>
+                              <p className="font-medium line-clamp-1"><LatexText text={block.question || block.content} /></p>
                            </td>
                            <td className="p-2 align-top text-muted-foreground">
                               {block.options ? `${block.options.length} options` : block.blankAnswers ? `${block.blankAnswers.length} blanks` : '-'}

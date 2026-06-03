@@ -1,6 +1,7 @@
 
 import { Button } from '@/components/common/Button';
 import { Lightbulb, Info } from 'lucide-react';
+import { LatexText } from '@/components/common/LatexText';
 
 interface BlockFooterProps {
   explanation?: string;
@@ -33,7 +34,7 @@ export function BlockFooter({
            {hints.slice(0, visibleHints).map((hint, idx) => (
              <div key={idx} className="bg-warning/10 border border-warning/20 p-3 rounded-md text-sm text-warning flex items-start gap-2 animate-in fade-in slide-in-from-top-1">
                 <Lightbulb className="w-4 h-4 mt-0.5 shrink-0" />
-                <span><span className="font-semibold">Hint {idx + 1}:</span> {hint}</span>
+                <span><span className="font-semibold">Hint {idx + 1}:</span> <LatexText text={hint} /></span>
              </div>
            ))}
            {visibleHints < hints.length && (
@@ -65,18 +66,18 @@ export function BlockFooter({
           {showExplanation && (
              <div className="mt-2 space-y-3 animate-in fade-in zoom-in-95 duration-200">
                {explanation && (
-                 <div className="text-sm bg-accent/20 p-3 rounded-md border border-accent/30">
+                 <div className="text-sm bg-accent/20 p-3 rounded-md border border-accent/30 whitespace-pre-wrap">
                    <span className="font-semibold text-accent-foreground block mb-1">Explanation:</span>
-                   {explanation}
+                   <LatexText text={explanation} />
                  </div>
                )}
                
                {notes && (
-                 <div className="text-sm bg-muted/30 p-3 rounded-md border border-border flex items-start gap-2">
+                 <div className="text-sm bg-muted/30 p-3 rounded-md border border-border flex items-start gap-2 whitespace-pre-wrap">
                     <Info className="w-4 h-4 mt-0.5 text-muted-foreground shrink-0" />
-                    <div>
+                    <div className="flex-1">
                       <span className="font-semibold text-foreground/80 block mb-1">Note:</span>
-                      <div className="text-foreground/70">{notes}</div>
+                      <div className="text-foreground/70"><LatexText text={notes} /></div>
                     </div>
                  </div>
                )}
@@ -87,3 +88,4 @@ export function BlockFooter({
     </div>
   );
 }
+

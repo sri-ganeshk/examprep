@@ -1,6 +1,7 @@
 import { type ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 import { Tooltip } from '@/components/common/Tooltip';
+import { LatexText } from '@/components/common/LatexText';
 
 interface TruncatedTextProps {
   children: ReactNode;
@@ -44,8 +45,10 @@ export function TruncatedText({
   );
 
   if (tooltipText) {
+    const tooltipContent = typeof tooltipText === 'string' ? <LatexText text={tooltipText} /> : tooltipText;
+    
     return (
-      <Tooltip content={tooltipText} className={cn(lines === 1 ? "w-full block" : "", className?.includes("inline") ? "inline-block" : "block w-full")}>
+      <Tooltip content={tooltipContent} className={cn(lines === 1 ? "w-full block" : "", className?.includes("inline") ? "inline-block" : "block w-full")}>
         {/* We strip the className from the inner component if we are wrapping it, or handle specific cases. 
             Actually, TruncatedText is often structurally important (e.g. flex child). 
             Wrappers can break layout (flex-1).

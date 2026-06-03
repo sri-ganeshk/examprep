@@ -99,7 +99,7 @@ export function TopicContentArea({ selectedBlock, onEdit, onDelete }: TopicConte
             </div>
 
             <div className="prose prose-slate max-w-none dark:prose-invert">
-                <ContentBlockDisplay block={selectedBlock} />
+                <ContentBlockDisplay key={selectedBlock._id} block={selectedBlock} />
             </div>
           </div>
         </div>
