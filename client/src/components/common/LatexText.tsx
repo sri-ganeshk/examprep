@@ -1,5 +1,5 @@
 import React from 'react';
-import { InlineMath, BlockMath } from 'react-katex';
+import { InlineMath } from 'react-katex';
 
 interface LatexTextProps {
   text: string;
